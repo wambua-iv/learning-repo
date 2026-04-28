@@ -15,6 +15,6 @@ provider "aws" {
 }
 
 # Create a VPC
-resource "aws_vpc" "aws-tf-task" {
+resource "aws_vpc" "aws_tf_task" {
   cidr_block = "10.0.0.0/16"
 }
