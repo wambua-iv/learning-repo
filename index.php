@@ -1,5 +1,5 @@
 <?php
 
-echo "<h1> Sample php app</h1>"
+echo "<h1> Sample php app --version CI/CD</h1>"
 
 ?>
