@@ -16,9 +16,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: semgrep-oss/scan
-        container:
-          image: semgrep/semgrep
+      - name: SAST Scan
         uses: actions/checkout@v6
         run: semgrep scan --config auto
 
