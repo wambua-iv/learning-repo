@@ -67,7 +67,7 @@ jobs:
         with:
           image-ref: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
           format: 'table'
-          exit-code: '1' # Fail the build if vulnerabilities are found
+          exit-code: '1' 
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
