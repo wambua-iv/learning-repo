@@ -18,8 +18,10 @@ jobs:
 
       - name: SAST Scan
         uses: actions/checkout@v6
-        run: semgrep scan --config auto
-
+        run: |
+          docker run --rm -v "${{ github.workspace }}:/src" semgrep/semgrep \
+          semgrep scan --config auto --error
+      
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
