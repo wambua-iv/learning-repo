@@ -7,17 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Secrets Scan
         uses: gitleaks/gitleaks-action@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HUB_TOKEN }}
 
-      - name: SAST Scan
+      - name: Code Checkout
         uses: actions/checkout@v6
+        
+      - name: SAST Scan (Semgrep)
         run: |
           docker run --rm -v "${{ github.workspace }}:/src" semgrep/semgrep \
           semgrep scan --config auto --error
@@ -45,7 +47,6 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
