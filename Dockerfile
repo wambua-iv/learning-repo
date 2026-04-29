@@ -2,14 +2,14 @@ FROM node:lts
 
 WORKDIR /usr/api
 
-COPY package.json yarn.lock ./
+COPY package.json  package-lock.json ./
 
-RUN yarn install
+RUN npm install
 
-RUN yarn global add rimraf
+RUN npm global add rimraf
 
 RUN rimraf ./dist
 
 COPY . .
 
-USER non-root CMD ["yarn", "start:dev"]
+USER non-root CMD ["npm,.", "start:dev"]
