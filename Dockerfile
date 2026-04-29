@@ -12,4 +12,4 @@ RUN rimraf ./dist
 
 COPY . .
 
-CMD ["yarn", "start:dev"]
+USER non-root CMD ["yarn", "start:dev"]
