@@ -6,9 +6,7 @@ COPY package.json  package-lock.json ./
 
 RUN npm install
 
-RUN npm global add rimraf
-
-RUN rimraf ./dist
+RUN npx rimraf ./dist
 
 COPY . .
 
