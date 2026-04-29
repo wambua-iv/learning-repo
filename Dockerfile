@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:24-bookworm-slim
 
 WORKDIR /usr/api
 
