@@ -99,12 +99,19 @@ jobs:
             aws-region: ${{ secrets.AWS_REGION }}
   
         - name: Collect and Upload Logs
+          env:
+                  GH_WORKFLOW: ${{ github.workflow }}
+                  GH_RUN_ID: ${{ github.run_id }}
+                  GH_JOB_STATUS: ${{ github.job_status }}
+                  S3_BUCKET: ${{ secrets.S3_LOG_BUCKET }}
           run: |
-            mkdir -p audit-logs/${{ github.run_id }}
-            
-            echo "Workflow: ${{ github.workflow }}" > audit-logs/${{ github.run_id }}/summary.txt
-            echo "Run ID: ${{ github.run_id }}" >> audit-logs/${{ github.run_id }}/summary.txt
-            echo "Status: ${{ github.job_status }}" >> audit-logs/${{ github.run_id }}/summary.txt
-            echo "Timestamp: $(date)" >> audit-logs/${{ github.run_id }}/summary.txt
-  
-            aws s3 sync audit-logs/ s3://${{ secrets.S3_LOG_BUCKET }}/pipeline-archives/
+                  mkdir -p "audit-logs/$GH_RUN_ID"
+                  
+                  {
+                    echo "Workflow: $GH_WORKFLOW"
+                    echo "Run ID: $GH_RUN_ID"
+                    echo "Status: $GH_JOB_STATUS"
+                    echo "Timestamp: $(date)"
+                  } > "audit-logs/$GH_RUN_ID/summary.txt"
+        
+                  aws s3 sync audit-logs/ "s3://$S3_BUCKET/pipeline-archives/"
