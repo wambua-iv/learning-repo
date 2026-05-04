@@ -1,3 +1,0 @@
-add [rules.allowlist]
-description = "ignore commits"
-commits = [ "b8202a5" ]
